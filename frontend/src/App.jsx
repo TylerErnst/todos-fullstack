@@ -1,8 +1,24 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './App.css'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState([])
+
+  useEffect(() => {
+    async function getTodos() {
+      try {
+        const response = await fetch('http://localhost:8080/api/todos');
+        const data = await response.json();
+        console.log(data);
+        setTodos(data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getTodos();
+  }, [])
+
   const textRef = useRef();
   const completeRef = useRef();
 
@@ -27,6 +43,12 @@ function App() {
         <br /><br />
         <button>Add Todo</button>
       </form>
+
+      <br /><br />
+
+      {todos.map((todo) => 
+        <p style={{ textDecoration: todo.complete ? 'line-through' : '' }}key={todo.text}>{todo.text}</p>
+      )}
     </>
   )
 }
