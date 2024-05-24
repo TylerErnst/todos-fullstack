@@ -15,7 +15,7 @@ function App() {
         setIsLoading(true);
         const response = await fetch(BASE_URL);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setTodos(data)
       } catch (error) {
         console.log(error);
@@ -49,6 +49,8 @@ function App() {
       })
       const newTodo = await response.json();
       setTodos([...todos, newTodo]);
+      textRef.current.value = '';
+      completeRef.current.checked = false;
     } catch (error) {
       console.log(error);
     } finally {
