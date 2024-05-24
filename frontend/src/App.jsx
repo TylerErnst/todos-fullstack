@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
 
-const BASE_URL = 'http://localhost:8080/api/todos';
+const BASE_URL = import.meta.env.DEV ? 'http://localhost:8080/api/todos' : 'https://todos-backend-peke.onrender.com/api/todos';
+// https://todos-backend-peke.onrender.com/api/todos
+
+
 
 
 function App() {
